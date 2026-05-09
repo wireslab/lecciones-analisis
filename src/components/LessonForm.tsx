@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Editor from '@monaco-editor/react';
-import { createLesson, updateLesson } from '@/lib/actions';
+import { createLesson, updateLesson, deleteLesson } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 
 interface LessonFormProps {
@@ -26,6 +26,28 @@ export default function LessonForm({ initialData }: LessonFormProps) {
     tags: initialData?.tags || '',
     code: initialData?.code || '// Pega el código de Gemini aquí\n',
   });
+
+  const extractTitleFromCode = (code: string) => {
+    const funcMatch = code.match(/export\s+default\s+function\s+([A-Z][a-zA-Z0-9]+)/);
+    const constMatch = code.match(/const\s+([A-Z][a-zA-Z0-9]+)\s*=\s*\(.*\)\s*=>/);
+    const name = (funcMatch && funcMatch[1]) || (constMatch && constMatch[1]);
+    if (name) {
+      return name.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()).trim();
+    }
+    return null;
+  };
+
+  const handleCodeChange = (value: string | undefined) => {
+    const code = value || '';
+    setFormData((prev) => {
+      const newData = { ...prev, code };
+      if (!prev.title.trim()) {
+        const extracted = extractTitleFromCode(code);
+        if (extracted) newData.title = extracted;
+      }
+      return newData;
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,7 +125,7 @@ export default function LessonForm({ initialData }: LessonFormProps) {
             defaultLanguage="typescript"
             theme="vs-dark"
             value={formData.code}
-            onChange={(value) => setFormData({ ...formData, code: value || '' })}
+            onChange={handleCodeChange}
             options={{
               minimap: { enabled: false },
               fontSize: 14,
@@ -114,7 +136,25 @@ export default function LessonForm({ initialData }: LessonFormProps) {
         </div>
       </div>
 
-      <div className="flex justify-end pt-4">
+      <div className="flex justify-between items-center pt-4">
+        {initialData ? (
+          <button
+            type="button"
+            onClick={async () => {
+              if (confirm('¿Estás seguro de que quieres eliminar esta lección?')) {
+                setLoading(true);
+                await deleteLesson(initialData.id);
+                router.push('/');
+                router.refresh();
+              }
+            }}
+            className="px-4 py-2 text-red-600 hover:text-red-700 font-medium transition-colors"
+          >
+            Eliminar Lección
+          </button>
+        ) : (
+          <div></div>
+        )}
         <button
           type="submit"
           disabled={loading}
