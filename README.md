@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Trading Academy CMS
 
-## Getting Started
+Un Sistema de Gestión de Contenido (CMS) local diseñado para almacenar, organizar y visualizar lecciones interactivas de análisis técnico construidas en React/Canvas y generadas por Gemini.
 
-First, run the development server:
+## 🚀 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Carga de Código:** Formulario intuitivo con editor Monaco (VS Code) para pegar el código de Gemini.
+- **Renderizado en Vivo:** Visualización interactiva instantánea usando Sandpack.
+- **Organización Inteligente:** Filtrado por categorías y búsqueda por etiquetas/título.
+- **Persistencia Local:** Base de datos SQLite gestionada con Prisma.
+- **Dockerizado:** Entorno consistente y fácil de desplegar con Docker Compose.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tecnologías
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** [Next.js 15 (App Router)](https://nextjs.org/)
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Base de Datos:** SQLite + Prisma ORM
+- **Editor:** @monaco-editor/react
+- **Runtime de Código:** @codesandbox/sandpack-react
+- **Iconos:** Lucide React
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📋 Requisitos Previos
 
-## Learn More
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-To learn more about Next.js, take a look at the following resources:
+## 🏃 Guía de Inicio Rápido
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clonar el repositorio:**
+   ```bash
+   git clone <url-del-repo>
+   cd lecciones_analisis
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Levantar el entorno con Docker:**
+   ```bash
+   docker-compose up --build
+   ```
 
-## Deploy on Vercel
+3. **Acceder a la aplicación:**
+   Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💡 Flujo de Trabajo con Gemini
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Solicita una lección:** Pide a Gemini una explicación interactiva en React (ej: "Hazme una lección interactiva sobre el patrón Head and Shoulders en React usando Canvas").
+2. **Crea la lección:** Haz clic en "Nueva Lección" en el CMS, pega el código, añade una categoría y etiquetas.
+3. **Estudia:** Accede a tu catálogo organizado para repasar los conceptos cuando quieras.
+
+## 📁 Estructura del Proyecto
+
+- `src/app`: Rutas y páginas de la aplicación.
+- `src/components`: Componentes UI reutilizables (Editor, Visor, Lista).
+- `src/lib`: Lógica de base de datos y acciones del servidor.
+- `prisma`: Esquema de base de datos y migraciones.
+- `Dockerfile` & `docker-compose.yml`: Configuración de contenedores.
+
+---
+Creado para potenciar el aprendizaje de análisis técnico mediante IA.

@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./prisma/data:/app/prisma/data
+    environment:
+      - DATABASE_URL=file:/app/prisma/data/dev.db
+    restart: always
+
+volumes:
+  prisma_data:
