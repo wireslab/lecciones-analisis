@@ -39,7 +39,7 @@ Un Sistema de Gestión de Contenido (CMS) local diseñado para almacenar, organi
    ```
 
 3. **Acceder a la aplicación:**
-   Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+   Abre [http://localhost:3001](http://localhost:3001) en tu navegador.
 
 ## 💡 Flujo de Trabajo con Gemini
 
